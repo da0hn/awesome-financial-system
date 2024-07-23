@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  financial-system-db:
+    image: postgres:13
+    container_name: financial-system-db
+    restart: always
+    environment:
+      POSTGRES_DB: financial_system
+      POSTGRES_USER: user_financial_system
+      POSTGRES_PASSWORD: user_financial_system
+    ports:
+      - "5432:5432"
+    volumes:
+      - D:/opt/financial-system/postgresql:/var/lib/postgresql/data
+    networks:
+      - financial-system-network
+networks:
+  financial-system-network:
+    driver: bridge
+    name: financial-system-network

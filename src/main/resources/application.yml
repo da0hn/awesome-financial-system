@@ -1,0 +1,29 @@
+server:
+  port: ${PORT:8080}
+  address: 0.0.0.0
+spring:
+  application:
+    name: financial-system
+  docker:
+    compose:
+      enabled: ${ENABLE_DOCKER_COMPOSE:true}
+      lifecycle-management: start_only
+      file: compose.yaml
+  flyway:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/financial_system
+    user: ${DATABASE_USER:user_financial_system}
+    password: ${DATABASE_PASSWORD:user_financial_system}
+    enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/financial_system
+    username: ${DATABASE_USER:user_financial_system}
+    password: ${DATABASE_PASSWORD:user_financial_system}
+  threads:
+    virtual:
+      enabled: true
+  jpa:
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate.hibernate.format_sql: true
