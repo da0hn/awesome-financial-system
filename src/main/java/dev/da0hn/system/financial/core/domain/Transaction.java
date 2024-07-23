@@ -38,30 +38,31 @@ public class Transaction implements Serializable {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
   private Long id;
 
-  @NotNull(message = "transaction.external-transaction-id.not-null")
-  @Column(name = "external_transaction_id", unique = true, nullable = false, updatable = false)
-  private String externalTransactionId;
+  @NotNull(message = Message.TRANSACTION_EXTERNAL_ID)
+  @Column(name = "external_id", unique = true, nullable = false, updatable = false)
+  private String externalId;
 
-  @NotNull(message = "transaction.sender.not-null")
+  @NotNull(message = Message.TRANSACTION_SENDER_NOT_NULL)
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "sender_id", nullable = false, updatable = false)
   private Client sender;
 
-  @NotNull(message = "transaction.receiver.not-null")
+  @NotNull(message = Message.TRANSACTION_RECEIVER_NOT_NULL)
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "receiver_id", nullable = false, updatable = false)
   private Client receiver;
 
-  @NotNull(message = "transaction.type.not-null")
+  @NotNull(message = Message.TRANSACTION_TYPE_NOT_NULL)
   @Column(name = "transaction_type", nullable = false)
   @Enumerated(EnumType.STRING)
   private Type type;
 
-  @Positive(message = "transaction.amount.positive")
+  @NotNull(message = Message.TRANSACTION_AMOUNT_NOT_NULL)
+  @Positive(message = Message.TRANSACTION_AMOUNT_POSITIVE)
   @Column(name = "amount", nullable = false)
   private BigDecimal amount;
 
-  @NotNull(message = "transaction.created-at.not-null")
+  @NotNull(message = Message.TRANSACTION_CREATED_AT_NOT_NULL)
   @Column(name = "created_at", nullable = false, updatable = false)
   private Instant createdAt;
 

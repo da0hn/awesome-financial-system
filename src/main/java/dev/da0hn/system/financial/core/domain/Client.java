@@ -19,8 +19,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.SoftDelete;
-import org.hibernate.annotations.SoftDeleteType;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -34,7 +32,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity(name = "Clients")
 @Table(name = "clients")
-@SoftDelete(strategy = SoftDeleteType.DELETED, columnName = "deleted")
 public class Client implements Serializable {
 
   @Serial
@@ -46,38 +43,34 @@ public class Client implements Serializable {
   private Long id;
 
   @Column(name = "client_name", nullable = false, updatable = false)
-  @NotBlank(message = "client.name.not-blank")
+  @NotBlank(message = Message.CLIENT_NAME_NOT_BLANK)
   private String name;
 
   @Column(name = "age", nullable = false)
-  @NotNull(message = "client.age.not-null")
-  @Positive(message = "client.age.positive")
+  @NotNull(message = Message.CLIENT_AGE_NOT_NULL)
+  @Positive(message = Message.CLIENT_AGE_POSITIVE)
   private Integer age;
 
   @Column(name = "address", nullable = false)
-  @NotBlank(message = "client.address.not-blank")
+  @NotBlank(message = Message.CLIENT_ADDRESS_NOT_BLANK)
   private String address;
 
   @Column(name = "account_number", unique = true, nullable = false, updatable = false)
-  @NotBlank(message = "client.account-number.not-blank")
+  @NotBlank(message = Message.CLIENT_ACCOUNT_NUMBER_NOT_BLANK)
   private String accountNumber;
 
-  @NotNull(message = "client.current-amount.not-null")
-  @PositiveOrZero(message = "client.current-amount.positive")
+  @NotNull(message = Message.CLIENT_BALANCE_NOT_NULL)
+  @PositiveOrZero(message = Message.CLIENT_BALANCE_POSITIVE_OR_ZERO)
   @Column(name = "balance", nullable = false)
   private BigDecimal balance;
 
-  @NotNull(message = "client.created-at.not-null")
+  @NotNull(message = Message.CLIENT_CREATED_AT_NOT_NULL)
   @Column(name = "created_at", nullable = false, updatable = false)
   private Instant createdAt;
 
-  @NotNull(message = "client.updated-at.not-null")
+  @NotNull(message = Message.CLIENT_UPDATED_AT_NOT_NULL)
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
-
-  @NotNull(message = "client.deleted.not-null")
-  @Column(name = "deleted", nullable = false)
-  private Boolean deleted;
 
   @Fetch(FetchMode.SUBSELECT)
   @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
