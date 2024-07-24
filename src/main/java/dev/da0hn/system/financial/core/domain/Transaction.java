@@ -55,7 +55,7 @@ public class Transaction implements Serializable {
   @NotNull(message = Message.TRANSACTION_TYPE_NOT_NULL)
   @Column(name = "transaction_type", nullable = false)
   @Enumerated(EnumType.STRING)
-  private Type type;
+  private TransactionType type;
 
   @NotNull(message = Message.TRANSACTION_AMOUNT_NOT_NULL)
   @Positive(message = Message.TRANSACTION_AMOUNT_POSITIVE)
@@ -65,10 +65,5 @@ public class Transaction implements Serializable {
   @NotNull(message = Message.TRANSACTION_CREATED_AT_NOT_NULL)
   @Column(name = "created_at", nullable = false, updatable = false)
   private Instant createdAt;
-
-  public enum Type {
-    DEPOSIT,
-    WITHDRAW
-  }
 
 }
